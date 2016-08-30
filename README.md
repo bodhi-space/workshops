@@ -41,5 +41,6 @@ A series of labs and workshops to get started with the Bodhi Platform and API.
 
 ## Mobile
 
-[Mobile application development](https://github.com/bodhi-space/workshops/blob/master/Mobile/4-mobile-application-development.md)  
+[Create a mobile app](https://github.com/bodhi-space/workshops/blob/master/Mobile/4-mobile-application-development.md)  
 [Provision and deploy a mobile app](https://github.com/bodhi-space/workshops/blob/master/Mobile/2-provision-and-deploy-an-app.md)  
+[Create a Branded Mobile container](https://github.com/bodhi-space/workshops/blob/master/Mobile/create-a-custom-container.md)  
