@@ -20,7 +20,7 @@ A series of labs and workshops to get started with the Bodhi Platform and API.
 ## Application
 
 [Using the HotSchedules Application API](https://github.com/bodhi-space/workshops/blob/master/Application/hs_api.md)  
-
+[Using the Platform API for HotSchedules Labor data](https://github.com/bodhi-space/workshops/blob/master/Cloud/10-integrate-to-hs_labor.md) 
 
 ## Cloud
 
@@ -31,7 +31,7 @@ A series of labs and workshops to get started with the Bodhi Platform and API.
 
 
 #### Data model
-[Using the Platform API for HotSchedules Labor data](https://github.com/bodhi-space/workshops/blob/master/Cloud/10-integrate-to-hs_labor.md)    
+   
 [Creating rollup models](https://github.com/bodhi-space/workshops/blob/master/Cloud/7-create-rollup-models.md)  
 
 #### Services
