@@ -1,12 +1,21 @@
 # Webhooks
 
-## What this does
+A WebHook is an HTTP callback: an HTTP POST that occurs when something happens. A web application implementing WebHooks will POST a message to a URL when certain things happen.
 
-1. Set up a webhook to watch a type for changes
+## What this lab does
+
+1. Set up a webhook to watch a data type for changes
+2. Post a message to an endpoint.
+3. Send an in-app push notification to your device
 
 
-## Environment
-Production Namespace: dipock
+## Pre-requisites
+
+
+Installed the HotSchedules Passbook application (for the push notification lab)
+
+
+
 
 set up a script called **pushnotification** and a webhook to call it. set up a type called demovoid that we post data to to force the webhook to fire when the transaction has a name of "Bob" associated with it.
 
