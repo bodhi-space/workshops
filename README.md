@@ -33,7 +33,7 @@ A series of labs and workshops to get started with the Bodhi Platform and API.
 #### Services
  
 [Creating Webhooks]()    
-[Writing Micro services]()    
+[Writing Microservices]()    
 [Push notifications](https://github.com/bodhi-space/workshops/blob/master/Cloud/5-push-notifications.md)  
 
 
