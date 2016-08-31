@@ -20,23 +20,22 @@ A series of labs and workshops to get started with the Bodhi Platform and API.
 ## Application
 
 [Using the HotSchedules Application API](https://github.com/bodhi-space/workshops/blob/master/Application/hs_api.md)  
+[Using the HotSchedules EBOH (Macromatix) API]()  
 [Using the Platform API for HotSchedules Labor data](https://github.com/bodhi-space/workshops/blob/master/Cloud/10-integrate-to-hs_labor.md) 
 
 ## Cloud
 
-#### API
+#### Data
 [Using the IoT Platform API](https://github.com/bodhi-space/workshops/blob/master/Cloud/3-explore-the-Bodhi-api.md)  
 [Using the Bulk API](https://github.com/bodhi-space/workshops/blob/master/Cloud/bulk-api.md)  
-
-
-
-#### Data model
-   
 [Creating rollup models](https://github.com/bodhi-space/workshops/blob/master/Cloud/7-create-rollup-models.md)  
 
 #### Services
  
+[Creating Webhooks]()    
+[Writing Micro services]()    
 [Push notifications](https://github.com/bodhi-space/workshops/blob/master/Cloud/5-push-notifications.md)  
+
 
 
 ## Mobile
