@@ -2,103 +2,93 @@
 
 A WebHook is an HTTP callback: an HTTP POST that occurs when something happens. A web application implementing WebHooks will POST a message to a URL when certain things happen.
 
+There are two labs covered here.  
+ 
+1. The first lab sets up a webhook to call an endpoint. The objective is to understand the webhook setup process with a low amount of effort.      
+2. The second lab sets up a webhook to call a service that accomplishes a task (sends a push notification to your device) - which is more involved but is a likely use case scenario that you will deploy in your account.
+
+
+# Lab 1: "Hello World" Webhook
+
 ## What this lab does
 
-1. Set up a webhook to watch a data type for changes
-2. Post a message to an endpoint.
-3. Send an in-app push notification to your device
+1. Set up a webhook to watch a data type for Inserts
+2. Trigger the webhook to Post a message to an endpoint.
+
 
 
 ## Pre-requisites
 
+A data type that you plan to watch. In this workshop I use a simple type I created called "Slog" (from "Captain Slog" ..) that has two string properties - application and message. (It's a useful type for capturing debug messages).
 
-Installed the HotSchedules Passbook application (for the push notification lab)
-
-
-
-
-set up a script called **pushnotification** and a webhook to call it. set up a type called demovoid that we post data to to force the webhook to fire when the transaction has a name of "Bob" associated with it.
-
-Because the webhook posts the instance if the type you are watching in the JSON payload, it is not possible to use webhooks to call the async task runner process (unless there is something I have not been told) - so it is necessary to call the script using JS Runner method.
-
-
-## Webhook
-
-Webhook set up to POST to endpoint. The webhook was tested perviously against http://requestb.in/1dtw8vm1 and works.
-
-
+````  
+Type: Slog {
+			 application: String,
+			 message: String
+			}  
 
 ````
 
-verify: false
-type:  "DemoVoid"
-retries: 5
-url: "https://api.bodhi.space/dipock/controllers/vertx/scripts/pushnotification"
-event: [0]:  "i"
-description: "watches a type then calls a script that pushes a notification"
-fail_count: 0
-name:  "CLONE - call-push-script"
-match_expressions: Array [1]
- 0: Object
-property:  "name"
-op:  "$eq"
-val:  "Bob"
-authorization: "BCtHJOPT11gqfiefpd6IlXcGkq4t5DMgYOCicLawFx9WDvBPcZP92M8E0LD7Ynxj3edR"
-status:  "Active"
-sys_id:  "579a84b54f8621196d2ce749"
+### Step 1 - set up the endpoint
 
-````
+We will use Requestb.in to provide the endpoint we want our webhook to call. It's a free service that is perfect for our use case. Open a browser and navigate to [Requestb.in](http://requestb.in/). 
+
+![requestbin](images/wh_90.png "requestbin")
+
+Requestb.in will provide a unique URL that you will call when the webhook fires. Copy the URL endpoint to the clipboard. (Do not copy the one shown in the screenshot).
+Don not close the browser window - you need to keep this requestb.in endpoint active. 
 
 
+### Step 2 - set up the webhook
 
-## Script
+Open a new browser tab.   
+Log into the HotSchedules IoT Platform admin console and navigate to the Webhook management tool [located here](https://tools.bodhi.space/script-manager/#/webhooks). Click "New Webhook" located mysteriously on the Upper right hand side of the screen.
 
-Name: pushnotification
-Main: main
-Source:
+![requestbin](images/wh_100.png "requestbin")
 
-````
-exports.main = function (options, done){
-    // set up a loop to run this multiple times
-    var arr = [1,2];
-	// var async = require('async');  - requires not required as async is a system lib
-	async.each(arr, function(num, cb){
-		console.info('Set up client context');
-        var client = options.connection;
-        
-        var data = {"to":{"type": "BodhiUser", 
-        "where": {"username": "admin__dipock"}},
-        "payload": {"message":"This just happened"}};
-        console.info('create PUSH notification');
-        client.post('notifications', data, function(err, data, ctx) {
-                       cb(err);
-        });
-		cb();
-	}, function(err){
-		if(err){
-			done(err);
-		}
-		else{
-		    // ** warning all scripts must have a done
-			done(null, 'callAsync task succeeded');
-		}
-	});
-}
-````
+Enter a name for your webhook. 
 
+![requestbin](images/wh_110.png "requestbin")
 
+In the **Post** field, paste the requestb.in end point you copied earlier.
 
+![requestbin](images/wh_120.png "requestbin")
 
-## Tests
+In the **On Any** field, pick "Insert". We want our webhook to fire when we insert new data into the type we want to watch.
 
+![requestbin](images/wh_130.png "requestbin")
 
+In the **To** field enter the name of the Type you want to watch for inserts. In my example I will watch the **Slog** data type.
 
-````
-curl -X POST -H "Content-Type:application/json" -u admin__dipock:admin__dipock "https://api.bodhi.space/dipock/controllers/vertx/taskcontroller/task" -d '{"name":"pushnotification", "type":"js", "content":{"name":"script"}}'
+![requestbin](images/wh_140.png "requestbin")
 
-````
+Next select the data filter. We will want the webhook to fire when our type has a data property equal to some value. In this case, we will watch Slog.application. In the **Where** field enter **application** (if you are following my example).
 
+![requestbin](images/wh_150.png "requestbin")
 
+Now set the filter property. In this case we want to fire the webhook when the application name is **Bob**.  In the **This** field enter **Bob**.
+
+![requestbin](images/wh_155.png "requestbin")
+
+Save the Webhook.
+
+![requestbin](images/wh_160.png "requestbin")
+
+### Step 3 - Trigger the webhook
+
+Navigate to [the Query tool](https://tools.bodhi.space/query/#/).   
+Select **POST** from the REST operation drop down.  
+Enter the name of the type. If you have been following this example then enter **Slog**.   
+In the payload body, fill out the two string fields - setting the **Message** to **Hello World** and the **Application** to **Bob**.   
+Press **Send** to post the data to the platform.
+
+This should trigger the webhook. It may take a minute or so to post a message to the endpoint we set up earlier on requestb.in. Navigate to [requestb.in](requestb.in)
+
+![requestbin](images/wh_170.png "requestbin")
+
+When you refresh the page you should see that the webhook has posted the payload (which defaults to the data type you posted) to the requestb.in endpoint.
+
+![requestbin](images/wh_180.png "requestbin")
 
 
 
