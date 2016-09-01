@@ -1,15 +1,15 @@
 
-# Create and run Microservices
+# Create and run services
 
-Microservices enables large applications to be defined as a suite of modular services. Each module supports a specific business goal and uses a simple, well-defined interface to communicate with other modules.
+Services enable large applications to be defined as a suite of modular components. Each service supports a specific business goal and uses a simple, well-defined interface to communicate with other services.
 
-In this workshop we will look at creating our own microservice and running it in the cloud.
+In this workshop we will look at creating our own service and running it in the cloud.
 
 To cater for the different ways in which you want to call and execute a script there are two different engines that run your code that are accessed via two different endpoints.
 
+- jsrunner - jvm - asynchronous code, fire and forget (get a task ID)
+- taskmaster - node.js - fire, runs sync and returns an immediate reponse
 
-jsrunner - jvm - asynchronous code, fire and forget (get a task ID)
-taskmaster - node.js - fire, runs sync and returns a reponse
 
 
 ## System libraries
